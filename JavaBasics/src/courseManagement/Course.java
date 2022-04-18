@@ -23,9 +23,13 @@ public class Course {
 		System.out.println("Enter Description");
 		SetDescription(CreateUsers.s.nextLine());
 		System.out.println("Enter Professor's name and Surname ('Name, Surname')");
-		String answer = CreateUsers.s.nextLine();
-		String[] answerParts = answer.split(", ");
-		Professor.FindByNameSurname(answerParts[0], answerParts[1]);
+		Professor professor;
+		do {
+			String answer = CreateUsers.s.nextLine();
+			String[] answerParts = answer.split(", ");
+			professor = Professor.FindByNameSurname(answerParts[0], answerParts[1]);
+		} while (professor != null);
+		SetAssignedProfessor(professor);
 		
 		//Add this to static list
 		Course.allCourses.add(this);
