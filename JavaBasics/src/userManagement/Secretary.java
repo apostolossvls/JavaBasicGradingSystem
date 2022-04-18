@@ -28,6 +28,7 @@ public class Secretary extends User {
 		SetName(CreateUsers.s.nextLine());
 		SetType(Type.Secretary); //sets its type to Secretary
 		
+		//add secretary to allUsers list and increase counter
 		User.allUsers.add(this);
 		usersCounter++;
 		
@@ -42,6 +43,7 @@ public class Secretary extends User {
 		SetSurname(newSurname);
 		SetType(Type.Secretary); //sets its type to Secretary
 		
+		//add secretary to allUsers list and increase counter
 		User.allUsers.add(this);
 		usersCounter++;
 		
@@ -61,7 +63,7 @@ public class Secretary extends User {
 	//create new grade object using UI constructor
 		public void UpdateCourseName() {
 			//TODO
-			System.out.println("'UpdateCourseName' implementation.");
+			System.out.println("'Updated.'");
 		}
 	
 	//Shows informations about the student

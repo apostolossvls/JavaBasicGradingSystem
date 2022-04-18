@@ -4,8 +4,6 @@ import mainpackage.CreateUsers;
 
 import java.util.ArrayList;
 
-import fileManagement.SaveManager;
-
 import java.io.*;
 //import java.util.InputMismatchException;
 
@@ -46,11 +44,8 @@ public class User implements Serializable{
 		SetName(CreateUsers.s.nextLine());
 		SetType(Type.User); //empty value
 		
-		User.allUsers.add(this);
+		allUsers.add(this); //store on list
 		usersCounter++;
-		
-		//saves all users' list to a file
-		SaveManager.Save((Object) allUsers, "users.txt");
 		
 		System.out.println("'User' created.");
 	}
@@ -63,11 +58,8 @@ public class User implements Serializable{
 		SetSurname(newSurname);
 		SetType(Type.User); //empty value
 		
-		User.allUsers.add(this);
+		allUsers.add(this); //store on list
 		usersCounter++;
-		
-		//saves all users' list to a file
-		SaveManager.Save((Object) allUsers, "users.txt");
 		
 		System.out.println("'User' created.");
 	}

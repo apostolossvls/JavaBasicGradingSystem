@@ -11,6 +11,9 @@ public class Student extends User {
 	//auto generated serialVersionUID
 	private static final long serialVersionUID = -3819521436348570924L;
 	
+	//static variables
+	public static ArrayList<Student> allStudents  = new ArrayList<>(); //list of all students
+	
 	//Student info
 	private final String registrationNumber;
 	
@@ -28,10 +31,13 @@ public class Student extends User {
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Registration Number");
 		registrationNumber = CreateUsers.s.nextLine(); //final variable is initialized on constructor
+		
 		SetType(Type.Student); //sets its type to Student
 		
+		//Add object to both generic and specific list
 		User.allUsers.add(this);
-		usersCounter++;
+		Student.allStudents.add(this);
+		usersCounter++; //userCounter is inherited from User
 		
 		System.out.println("'Student' created.");
 	}
@@ -45,8 +51,10 @@ public class Student extends User {
 		registrationNumber = newRegistrationNumber; //final variable is initialized on constructor
 		SetType(Type.Student); //sets its type to Student
 		
+		//Add object to both generic and specific list
 		User.allUsers.add(this);
-		usersCounter++;
+		Student.allStudents.add(this);
+		usersCounter++; //userCounter is inherited from User
 		
 		System.out.println("'Student' created.");
 	}
@@ -61,29 +69,17 @@ public class Student extends User {
 	
 	//Find Student by Registration Number
 	public static Student FindByRegistrationNumber(String target) {
-		for (int i = 0; i < allUsers.size(); i++) {
-			User user = allUsers.get(i);
-			if (user.GetType() == Type.Student) {
-				Student student = (Student)user;
-				if (student.GetRegistrationNumber() == target) {
-					return student;
-				}
+		for (int i = 0; i < allStudents.size(); i++) {
+			if (allStudents.get(i).GetRegistrationNumber() == target) {
+				return allStudents.get(i);
 			}
 		}
 		return null;
 	}
 	
-	//returns all students from allUsers list
+	//returns all students from static list
 	public static ArrayList<Student> GetAllStudents() {
-		ArrayList<Student> students = new ArrayList<Student>();
-		for (int i = 0; i < allUsers.size(); i++) {
-			User user = allUsers.get(i);
-			if (user.GetType() == Type.Student) {
-				//cast user as student and the all it to return list
-				students.add((Student)user);
-			}
-		}
-		return students;
+		return allStudents;
 	}
 	
 	//getters
