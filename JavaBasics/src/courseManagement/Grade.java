@@ -81,7 +81,8 @@ public class Grade {
 		do {
 			answer = CreateUsers.s.nextLine();
 			if (answer == "exit" || answer == "cancel") return;
-			student = Student.FindByRegistrationNumber(answer);
+			//TODO Try...catch
+			student = Student.FindByRegistrationNumber(Integer.valueOf(answer));
 		} while (student == null);
 		
 		System.out.println("Enter Student's Grade");
@@ -110,7 +111,7 @@ public class Grade {
 	}
 	
 	//return a student searched by the registration number
-	public Float GetGrade(String registrationNumber) {
+	public Float GetGrade(Integer registrationNumber) {
 		Student student = FindStudent(registrationNumber);
 		if (student != null) {
 			return grades.get(student).floatValue();
@@ -130,14 +131,15 @@ public class Grade {
 		else {
 			//Call main overload GetGrade method and if result is -1 then Student wasn't found...
 			//...main overload GetGrade method doesn't include console output as it may be used by other methods
-			if (GetGrade(answer) == -1.0F) {
+			//TODO try...catch
+			if (GetGrade(Integer.valueOf(answer)) == -1.0F) {
 				System.out.println("Student not found.");
 			}
 		}
 	}
 	
 	//Find a student in the dictionary of grades by the registration number 
-	Student FindStudent(String registrationNumber) {
+	Student FindStudent(Integer registrationNumber) {
 		Student student = null;
 		//empty enumeration to store. grades.keys returns an enumaration
         Enumeration<Student> enu = grades.keys();

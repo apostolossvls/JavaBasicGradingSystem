@@ -64,11 +64,11 @@ public class Student extends User {
 		System.out.println("Username: " + GetUsername());
 		System.out.println("Name: " + GetName());
 		System.out.println("Surname: " + GetSurname());
-		System.out.println("Registration Number: " + GetRegistrationNumber());
+		System.out.println("Registration Number: " + GetRegistrationNumberToString());
 	}
 	
 	//Find Student by Registration Number
-	public static Student FindByRegistrationNumber(String target) {
+	public static Student FindByRegistrationNumber(Integer target) {
 		for (int i = 0; i < allStudents.size(); i++) {
 			if (allStudents.get(i).GetRegistrationNumber() == target) {
 				return allStudents.get(i);
@@ -83,7 +83,12 @@ public class Student extends User {
 	}
 	
 	//getters
-	public String GetRegistrationNumber() {
+	public Integer GetRegistrationNumber() {
+		return registrationNumber;
+	}
+	
+	//getters
+	public String GetRegistrationNumberToString() {
 		return registrationNumber.toString();
 	}
 }
