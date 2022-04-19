@@ -15,7 +15,7 @@ public class Student extends User {
 	public static ArrayList<Student> allStudents  = new ArrayList<>(); //list of all students
 	
 	//Student info
-	private final String registrationNumber;
+	private final Integer registrationNumber;
 	
 	//Constructors
 	//Constructor with user interface
@@ -30,7 +30,7 @@ public class Student extends User {
 		System.out.println("Enter Surname");
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Registration Number");
-		registrationNumber = CreateUsers.s.nextLine(); //final variable is initialized on constructor
+		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
 		
 		SetType(Type.Student); //sets its type to Student
 		
@@ -43,7 +43,7 @@ public class Student extends User {
 	}
 	
 	//Constructor with parameters
-	public Student(String newUsername, String newPassword, String newName, String newSurname, String newRegistrationNumber) {
+	public Student(String newUsername, String newPassword, String newName, String newSurname, Integer newRegistrationNumber) {
 		SetName(newName);
 		SetUsername(newUsername);
 		SetPassword(newPassword);
@@ -84,7 +84,7 @@ public class Student extends User {
 	
 	//getters
 	public String GetRegistrationNumber() {
-		return registrationNumber;
+		return registrationNumber.toString();
 	}
 }
 
