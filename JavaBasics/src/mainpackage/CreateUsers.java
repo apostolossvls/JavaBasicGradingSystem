@@ -3,6 +3,7 @@ package mainpackage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fileManagement.ImportStudent;
 import fileManagement.SaveManager;
 import userManagement.*;
 
@@ -15,7 +16,7 @@ public class CreateUsers implements Serializable {
 
 	public static final Scanner s = new Scanner(System.in); //One and only scanner for the program
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		/*
 		//Προσπάθεια ανάγνωσης λίστας allUsers από αρχείο
@@ -73,7 +74,7 @@ public class CreateUsers implements Serializable {
 		} while (!correctAnswer);
 	}
 	
-	static void Auto() {
+	static void Auto() throws FileNotFoundException {
 		
 		//create 3 users one of each
 		System.out.println("* Creating 3  users.");
@@ -85,7 +86,7 @@ public class CreateUsers implements Serializable {
 		
 		//calling methods "register"
 		System.out.println("* Registering all users:");
-		System.out.println("* Register 'Student' with username:'foo1', password: '12345', name: 'nameFoo1', surname: 'dummy1', Registration Number: 'p12345'");
+		System.out.println("* Register 'Student' with username:'foo1', password: '12345', name: 'nameFoo1', surname: 'dummy1', Registration Number: '12345'");
 		//thisStudent.Register("foo1", "12345", "nameFoo1", "dummy1", "p12345");
 		System.out.println("* Register 'Seller' with username:'foo2', password: '12345', name: 'nameFoo2', surname: 'dummy2'");
 		//thisSeller.Register("foo2", "12345", "nameFoo2", "dummy2");
@@ -102,6 +103,11 @@ public class CreateUsers implements Serializable {
 		System.out.println("* Login 'Administrator' with username:'foo3', password: '12345'");
 		//thisAdmin.LogIn("foo3", "12345");
 		System.out.println("* All accounts are logged in. \n");
+		
+		System.out.println("* Import from file \n");
+		ImportStudent.Import("D:\\unity projects\\temp\\new 3.txt");
+	
+		
 		
 		//admin
 		/*
