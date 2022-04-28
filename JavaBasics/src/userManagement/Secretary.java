@@ -1,6 +1,9 @@
 package userManagement;
 
+import java.util.ArrayList;
+
 import courseManagement.Course;
+import courseManagement.EnrollCourseRequest;
 import courseManagement.Grade;
 import mainpackage.CreateUsers;
 
@@ -12,7 +15,7 @@ public class Secretary extends User {
 	private static final long serialVersionUID = -3819521436348570924L;
 	
 	//Secretary info
-	//empty
+	private static ArrayList<EnrollCourseRequest> pendingCourseRequests;
 	
 	//Constructors
 	//Constructor with user interface
@@ -61,15 +64,39 @@ public class Secretary extends User {
 	}
 	
 	//create new grade object using UI constructor
-		public void UpdateCourseName() {
-			//TODO
-			System.out.println("'Updated.'");
-		}
+	public void UpdateCourseName() {
+		//TODO
+		System.out.println("'Updated.'");
+	}
 	
 	//Shows informations about the student
 	public void ShowInfo() {
 		System.out.println("Username: " + GetUsername());
 		System.out.println("Name: " + GetName());
 		System.out.println("Surname: " + GetSurname());
+	}
+	
+	//Takes an EnrollCourseRequest and adds it to the pending list if it was not included.
+	//Used by Student class.
+	public static void StudentEnrollCourse(EnrollCourseRequest request) {
+		if (!pendingCourseRequests.contains(request)) {
+			pendingCourseRequests.add(request);
+		}
+	}
+	
+	//With a request, add a student to the grading list, ready to be given a grade, on that requested course
+	public void AcceptEnrollRequest(EnrollCourseRequest request) {
+		//Find the grade instance by giving the course contained in the request as parameter.
+		Grade grade = Grade.FindGradeOfCourse(request.getCourse());
+		//Add the student in the grading list of the course ready to be given a grade.
+		//Value of -1.0F is a helper float value meaning that the student has not been given a grade yet.
+		grade.AddGrade(request.getStudent(), -1.0F);
+	}
+	
+	//For each pending enroll request, call AcceptEnrollRequest method
+	public void AcceptAllEnrollRequests() {
+		for (int i = 0; i < pendingCourseRequests.size(); i++) {
+			AcceptEnrollRequest(pendingCourseRequests.get(i));
+		}
 	}
 }

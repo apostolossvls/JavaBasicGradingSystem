@@ -121,8 +121,19 @@ public class Grade {
 		}
 	}
 	
+	//Returns a Grade instance  by searching in static allGrades array list
+	public static Grade FindGradeOfCourse(Course course) {
+		for (int i = 0; i < allGrades.size(); i++) {
+			//if courses match
+			if (allGrades.get(i).GetCourse() == course) {
+				return allGrades.get(i);
+			}
+		}
+		return null;
+	}
+	
 	//GetGrade using User Input, calls GetGrade overload with one String parameter
-	public void GetGrade() {
+	public void GetStudentGrade() {
 		String answer;
 		System.out.println("Enter Student's Registration Number");
 		answer = CreateUsers.s.nextLine();

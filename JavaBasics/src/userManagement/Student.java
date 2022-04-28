@@ -2,6 +2,8 @@ package userManagement;
 
 import java.util.ArrayList;
 
+import courseManagement.Course;
+import courseManagement.EnrollCourseRequest;
 import mainpackage.CreateUsers;
 
 //import java.util.InputMismatchException;
@@ -65,6 +67,14 @@ public class Student extends User {
 		System.out.println("Name: " + GetName());
 		System.out.println("Surname: " + GetSurname());
 		System.out.println("Registration Number: " + GetRegistrationNumberToString());
+	}
+	
+	//Enroll to a course, added to a pending list on Secretary class
+	public void EnrollCourse(Course course) {
+		//crate a new EnrollCourseRequest instance for this student
+		EnrollCourseRequest request = new EnrollCourseRequest(this, course);
+		//Request call static method on Secretary class
+		Secretary.StudentEnrollCourse(request);
 	}
 	
 	//Find Student by Registration Number
