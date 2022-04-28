@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import courseManagement.Course;
 import courseManagement.EnrollCourseRequest;
+import courseManagement.Grade;
 import mainpackage.CreateUsers;
 
 //import java.util.InputMismatchException;
@@ -75,6 +76,12 @@ public class Student extends User {
 		EnrollCourseRequest request = new EnrollCourseRequest(this, course);
 		//Request call static method on Secretary class
 		Secretary.StudentEnrollCourse(request);
+	}
+	
+	//Show all grades of this student
+	//TODO Get results and then print out results on this method
+	public void ShowAllGrades() {
+		Grade.GetStudentAllGrades(this);
 	}
 	
 	//Find Student by Registration Number

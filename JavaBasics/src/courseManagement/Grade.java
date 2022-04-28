@@ -149,6 +149,23 @@ public class Grade {
 		}
 	}
 	
+	//Prints out all the grades that the student has been given a score
+	public static void GetStudentAllGrades(Student student) {
+		for (int i = 0; i < allGrades.size(); i++) {
+			//Get this course's grading object
+			Grade gradeObj = allGrades.get(i);
+			if (gradeObj == null) continue;
+			
+			//Get score Value with key "student" on the "grades" Dictionary
+			float score = gradeObj.grades.get(student);
+			if (score == -1.0F) continue; //score has value -1.0F when student is not yet graded, as a helping value
+			
+			String courseName = gradeObj.GetCourse().GetName();
+			//TODO return values and not print out
+			System.out.println("Course: "+courseName+" | "+score);
+		}
+	}
+	
 	//Find a student in the dictionary of grades by the registration number 
 	Student FindStudent(Integer registrationNumber) {
 		Student student = null;
