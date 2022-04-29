@@ -53,6 +53,16 @@ public class Secretary extends User {
 		System.out.println("'Secretary' created.");
 	}
 	
+	//create new Student using UI constructor
+	public Student CreateStudent() {
+		return new Student();
+	}
+	
+	//create new Professor using UI constructor
+	public Professor CreateProfessor() {
+		return new Professor();
+	}
+	
 	//create new course using UI constructor
 	public Course CreateCourse() {
 		return new Course();
@@ -90,7 +100,7 @@ public class Secretary extends User {
 		Grade grade = Grade.FindGradeOfCourse(request.getCourse());
 		//Add the student in the grading list of the course ready to be given a grade.
 		//Value of -1.0F is a helper float value meaning that the student has not been given a grade yet.
-		grade.AddGrade(request.getStudent(), -1.0F);
+		grade.GiveGrade(request.getStudent(), -1.0F);
 	}
 	
 	//For each pending enroll request, call AcceptEnrollRequest method

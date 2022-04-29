@@ -65,14 +65,16 @@ public class Grade {
 		SaveManager.Save((Object) allGrades, "grades.txt");
 	}
 	
-	//add student to list
-	public void AddGrade(Student student, Float value) {
+	//Update OR Add student to list
+	public void GiveGrade(Student student, Float value) {
+		//TODO try..catch null
+		//With "put", the value gets updated if key exists of it gets added if it doesn't.
 		grades.put(student, value);
 		
 	}
 	
 	//overloading AddGrade with UI and calling AddGrade with parameters
-	public void AddGrade() {
+	public void GiveGrade() {
 		String answer;
 		Student student;
 		Float grade;
@@ -91,9 +93,10 @@ public class Grade {
 			if (answer == "exit" || answer == "cancel") return;
 			//try...catch
 			grade = Float.parseFloat(answer);
-		} while (grade == null);
+		} while (grade == null || (grade < 0F && grade != -1.0F));
+		//allow float grade to take positive values, zero or -1 (as a helper value meaning no grading yer)
 		
-		AddGrade(student, grade);
+		GiveGrade(student, grade);
 		System.out.println("Student's Grade was added to" + course.GetName());
 	}
 	

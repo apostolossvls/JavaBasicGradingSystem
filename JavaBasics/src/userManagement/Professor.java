@@ -54,8 +54,9 @@ public class Professor extends User {
 		System.out.println("'Professor' created.");
 	}
 	
+	//Give a score/grade on a student on a Grade instance (Grade and Course objects are related)
 	public void GradeStudent(Student student, Grade grade,  Float value) {
-		grade.AddGrade(student, value);
+		grade.GiveGrade(student, value);
 	}
 	
 	//Shows informations about the professor
