@@ -97,7 +97,7 @@ public class Secretary extends User {
 	//With a request, add a student to the grading list, ready to be given a grade, on that requested course
 	public void AcceptEnrollRequest(EnrollCourseRequest request) {
 		//Find the grade instance by giving the course contained in the request as parameter.
-		Grade grade = Grade.FindGradeOfCourse(request.getCourse());
+		Grade grade = Grade.GetGradeOfCourse(request.getCourse());
 		//Add the student in the grading list of the course ready to be given a grade.
 		//Value of -1.0F is a helper float value meaning that the student has not been given a grade yet.
 		grade.GiveGrade(request.getStudent(), -1.0F);

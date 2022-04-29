@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import fileManagement.SaveManager;
 import mainpackage.CreateUsers;
+import userManagement.Professor;
 import userManagement.Student;
 
 public class Grade {
@@ -73,7 +74,7 @@ public class Grade {
 		
 	}
 	
-	//overloading AddGrade with UI and calling AddGrade with parameters
+	//overloading GiveGrade with UI and calling AddGrade with parameters
 	public void GiveGrade() {
 		String answer;
 		Student student;
@@ -125,7 +126,7 @@ public class Grade {
 	}
 	
 	//Returns a Grade instance  by searching in static allGrades array list
-	public static Grade FindGradeOfCourse(Course course) {
+	public static Grade GetGradeOfCourse(Course course) {
 		for (int i = 0; i < allGrades.size(); i++) {
 			//if courses match
 			if (allGrades.get(i).GetCourse() == course) {
@@ -167,6 +168,17 @@ public class Grade {
 			//TODO return values and not print out
 			System.out.println("Course: "+courseName+" | "+score);
 		}
+	}
+	
+	public static ArrayList<Grade> GetProfessorGradings(Professor professor) {
+		ArrayList<Grade> proffessorsGrades = new ArrayList<Grade>();
+		for (int i = 0; i < allGrades.size(); i++) {
+			//if courses match
+			if (allGrades.get(i).GetCourse().GetAssignedProfessor() == professor) {
+				proffessorsGrades.add(allGrades.get(i));
+			}
+		}
+		return proffessorsGrades;
 	}
 	
 	//Find a student in the dictionary of grades by the registration number 

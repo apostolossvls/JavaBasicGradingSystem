@@ -1,5 +1,9 @@
 package userManagement;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+
 import courseManagement.Grade;
 import mainpackage.CreateUsers;
 
@@ -57,6 +61,34 @@ public class Professor extends User {
 	//Give a score/grade on a student on a Grade instance (Grade and Course objects are related)
 	public void GradeStudent(Student student, Grade grade,  Float value) {
 		grade.GiveGrade(student, value);
+	}
+	
+	//Show all grades of students of all the courses the professor is assigned
+	public void ShowAllGradings() {
+		//get a list all all Grade instances the professor is assigned professor
+		ArrayList<Grade> grades = Grade.GetProfessorGradings(this);
+		if (grades == null || grades.isEmpty()) { //message if result is empty
+			System.out.println("Professor is not assigned to any course");
+			return;
+		}
+		
+		for (int i = 0; i < grades.size(); i++) {
+			//print out the course name
+			System.out.println("Course: "+grades.get(i).GetCourse().GetName());
+			
+			//get grade dictionary of this course
+			Dictionary<Student, Float> grade = grades.get(i).GetGrades();
+			//enumeration to store. grade.keys returns an enumeration
+			Enumeration<Student> enu = grade.keys();
+			
+	        //While enumeration has still elements 
+	        while (enu.hasMoreElements()) {
+	        	Student student = enu.nextElement(); //get next student
+	        	//Print out student's name and the grade on this course.
+	        	//Giving the student as key will return the score / value on the dictionary
+	        	System.out.println(student.GetName() +" | "+grade.get(student));
+	        }
+		}
 	}
 	
 	//Shows informations about the professor
