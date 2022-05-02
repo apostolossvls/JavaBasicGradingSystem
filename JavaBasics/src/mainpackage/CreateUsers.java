@@ -60,7 +60,7 @@ public class CreateUsers implements Serializable {
 				case "ui":
 				case "2":
 					correctAnswer = true;
-					//SimulateUI();
+					SimulateUI();
 					break;
 				default:
 			}
@@ -122,7 +122,9 @@ public class CreateUsers implements Serializable {
 		System.out.println("* Import from file \n");
 		//ImportStudent.Import("D:\\unity projects\\temp\\new 3.txt");
 		
-		System.out.println("*--- Secretary methods ---*\n");
+		
+		
+		System.out.println("*--- Secretary and Student Enroll methods ---*\n");
 		
 		System.out.println("* Show 'Secretary' info");
 		thisSecretary.ShowInfo();
@@ -139,9 +141,22 @@ public class CreateUsers implements Serializable {
 		System.out.println("* 'Secretary' assign a professor to a course (Update assigned professor)");
 		thisSecretary.AssignProfessorToCourse(thisProfessor, courseJava);
 		
+		System.out.println("* 'Student' is making a request to enroll on course 'Java'");
+		EnrollCourseRequest requestJava = thisStudent.EnrollCourse(courseJava);
+		System.out.println("* 'Student' is making a request to enroll on course 'WebApps'");
+		thisStudent.EnrollCourse(courseWeb);
+		
+		System.out.println("* 'Secretary' accepts 'WebApps' enroll request");
+		thisSecretary.AcceptEnrollRequest(requestJava);
+		
+		System.out.println("* 'Secretary' accepts ALL other enroll requests");
+		thisSecretary.AcceptAllEnrollRequests();
+		
 		System.out.println("* Other methods will be demonstrated later. (Accept enroll requests etc)\n");
 		
-		System.out.println("*--- Professor methods ---*\n");
+		
+		//Professor
+		System.out.println("\n*--- Professor methods ---*\n");
 		
 		System.out.println("* Show 'Professor' info");
 		thisProfessor.ShowInfo();
@@ -169,260 +184,251 @@ public class CreateUsers implements Serializable {
 		System.out.println("* Show all of 'ProfessorX' gradings in all of his courses:");
 		thisProfessor.ShowAllGradings();
 		
-		//admin
-		/*
-		System.out.println("*--- Admin methods ---*\n");
 		
-		System.out.println("* 'Admin' creates a 'Client' (Waiting for input):");
-		thisAdmin.CreateUser();
-		System.out.println("* Creation completed.\n");
-		
-		System.out.println("* Show all users:");
-		thisAdmin.ShowAllUsers();
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* 'Admin' updates a client's information (Waiting for input):");
-		thisAdmin.UpdateUser();
-		System.out.println("* Update completed.\n");
-		
-		System.out.println("* Search for user:");
-		thisAdmin.SearchUser();
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Delete a user:");
-		thisAdmin.RemoveUser();
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* 'Admin' creates an 'Admin':");
-		thisAdmin.CreateAdmin();
-		System.out.println("* Completed.\n");
-		
-		//program
-		System.out.println("* Add 2 programs:");
-		System.out.println("* Adding a program with name:"
-			+ "'program1', benefits: '500', fixed charge: '20', extra charge per minute: 0.2");
-		thisAdmin.AddProgram("program1", 500f, 20f, 0.2f);
-		System.out.println("* Completed.");
-		System.out.println("* Adding a program with name:"
-			+ "'program2', benefits: '1000', fixed charge: '30', extra charge per minute: 0.2");
-		thisAdmin.AddProgram("program2", 1000f, 30f, 0.2f);
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Show all programs");
-		thisAdmin.ShowPrograms();
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Remove a program:");
-		System.out.println("* Removing program with index: 0");
-		thisAdmin.RemoveProgram(0);
-		System.out.println("* Completed.\n");
-		
-		//seller
-		System.out.println("*--- Seller methods ---*\n");
-		
-		System.out.println("* Add the client to the Seller's clients:");
-		thisSeller.InsertClient(thisClient);
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Show all of his clients:");
-		thisSeller.ShowClients();
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Set the client's program :");
-		System.out.println("* Setting this client's program to program with index 0:");
-		thisSeller.ChangeClientProgram(thisClient.GetPhoneNumber(), Admin.programs.get(0));
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Create a bill for the client:");
-		thisSeller.CreateBill(thisClient.GetPhoneNumber(), 1);
-		System.out.println("* Completed.\n");
-		
-		System.out.println("* Remove the client to the Seller's clients:");
-		thisSeller.RemoveClient(thisClient);
-		System.out.println("* Completed.\n");
-		*/
 		
 		//Student
-		System.out.println("*--- Student methods ---*\n");
+		System.out.println("\n*--- Student methods (enroll methods are above)---*\n");
 		
-		System.out.println("* Shows info of 'Student':");
-		thisStudent.ShowInfo();
+		System.out.println("* Call static method to find a student by registration number ('22022'):");
+		Student foundStudent = Student.FindByRegistrationNumber(22022);
+		if (foundStudent != null) {
+			System.out.println("* Found, and the Student's infos are:'");
+			foundStudent.ShowInfo();
+		}
 		
-		System.out.println("* Finally, Log out from a user:");
+		System.out.println("* Show 'NotSpiderman' ALL grades on all of his courses:");
+		thisStudent.ShowAllGrades();
+		
+		System.out.println("\n* Finally, Log out from a user:");
 		thisStudent.LogOut();
 	}
 	
-	/*
 	static void SimulateUI() {
+		
+		System.out.println("Creating default instances:");
+		
+		Secretary thisSecretary = new Secretary("GladOS", "12345", "Mary", "Jane");
+		Professor thisProfessor = new Professor("ProfessorX", "77777", "Charles", "Xavier", 22100);
+		Student thisStudent = new Student("NotSpiderman", "88888", "Peter", "Parker", 22022);
+		Course thisCourseWeb = new Course("Web", "How to create web applications", thisProfessor);
+		Grade thisGradeWeb = new Grade(thisCourseWeb, 2022, null);
+		
+		System.out.println("\nIt is recommended to select on of each user (Student, Professor, Secretary),");
+		System.out.println("...then assign your new professor with your values\n");
+		
 		//για την πρώτη άσκηση όπου η υλοποίηση δεν έχει ολοκληρωθεί, υπάρχει ο παρακάτω τρόπος user interface
-		//στην αρχή ο χρήστης επιλέγει το account / δικαιώματα όπου θα έχει
+		//στην αρχή ο χρήστης επιλέγει το user / δικαιώματα όπου θα έχει
 		//μετά μπορεί να επιλέγει τις λειτουργείες όπου του επιτρέπονται και να τις εκτελεί
-		System.out.println("Account (only for testing):");
-		System.out.println("(1) Client , (2) Seller , (3) Admin");
+		System.out.println("Select User type (only for testing):");
+		System.out.println("(1) Student , (2) Professor , (3) Secretary");
 		
 		Scanner scanner = new Scanner(System.in);
-		String answerAccount = scanner.nextLine();
+		String answerUser = scanner.nextLine();
 		
-		boolean answerAccountflag=false; //αν επιλεχθηκε σωστό account
+		boolean answerUserFlag = false; //αν επιλεχθηκε σωστός user
+		boolean answerStudentFlag = false; // //αν επιλεχθηκε student έστω μία φορά
+		boolean answerProfessorFlag = false; // //αν επιλεχθηκε student έστω μία φορά
+		boolean answerSecretaryFlag = false; // //αν επιλεχθηκε student έστω μία φορά
 		do {
 			System.out.println("*-----------*");
 			System.out.println("Enter Action");
 			String answer;
-			switch (answerAccount) {
-				case "Client":
+			switch (answerUser) {
+				case "Student":
 				case "1":
-					answerAccountflag=true;
-					Client thisClient = new Client();
+					answerUserFlag = true;
+					if (!answerStudentFlag) thisStudent = new Student(); //δημιουργία αν είναι η πρώτη φορά
+					answerStudentFlag = true;
+					
 					System.out.println(
-						"(1) login , (2) logout , (3) register ,"
-						+ "(4) Call (5) ShowInfo , (6) ShowCallHistory , (7) PayBill"
+						"(1) login , (2) logout , (3) show info , "
+						+"(4) enroll course web, (5) show grades, "
+						+"(6) select other user"
 					);
 					answer = scanner.nextLine();
 					switch (answer) {
 						case "login":
 						case "1":
-							thisClient.LogIn();
+							thisStudent.LogIn();
 							break;
 						case "logout":
 						case "2":
-							thisClient.LogOut();
+							thisStudent.LogOut();
 							break;
-						case "register":
+						case "show info":
 						case "3":
-							thisClient.Register();
+							thisStudent.ShowInfo();
 							break;
-						case "Call":
+						case "enroll course web":
 						case "4":
-							thisClient.MakeCall();
+							thisStudent.EnrollCourse(thisCourseWeb);
 							break;
-						case "ShowInfo":
+						case "show grades":
 						case "5":
-							thisClient.ShowInfo();
+							thisStudent.ShowAllGrades();
 							break;
-						case "ShowCallHistory":
+						//Except from selecting methods, you can choose to go back and get access...
+						//...as another type of user
+						case "select other user":
+						case "select user":
+						case "select":
+						case "back":
 						case "6":
-							thisClient.ShowCallHistory();
-							break;
-						case "PayBill":
-						case "7":
-							thisClient.PayBill();
+							answerUser = "back";
 							break;
 						default:
 					}
 					break;
-				case "Seller":
+				case "Professor":
 				case "2":
-					answerAccountflag=true;
-					Seller thisSeller = new Seller();
+					answerUserFlag = true;
+					if (!answerProfessorFlag) thisProfessor = new Professor(); //δημιουργία αν είναι η πρώτη φορά
+					answerProfessorFlag = true;
+					
 					System.out.println(
-						"(1) login , (2) logout , (3) register ,"
-						+ "(4) ShowClients , (5) InsertClient , (6) RemoveClient ,"
-						+ "(7) CreateBill , (8) ChangeClientProgram"
-					);
+							"(1) login , (2) logout , (3) show info ,"
+							+"(4) grade student, (5) show grades, "
+							+"(6) select other user"
+						);
 					answer = scanner.nextLine();
 					switch (answer) {
 						case "login":
 						case "1":
-							thisSeller.LogIn();
+							thisProfessor.LogIn();
 							break;
 						case "logout":
 						case "2":
-							thisSeller.LogOut();
+							thisProfessor.LogOut();
 							break;
-						case "register":
+						case "show info":
 						case "3":
-							thisSeller.Register();
+							thisProfessor.ShowInfo();
 							break;
-						case "ShowClients":
+						case "grade student":
 						case "4":
-							thisSeller.ShowClients();
+							System.out.println("(test enviroment) Give score to 'thisStudent' for course 'thisGradeWeb':");
+							try {
+								Float value = Float.valueOf(CreateUsers.s.nextLine());
+								if (value >=0 && value <=10)
+									thisProfessor.GradeStudent(thisStudent, thisGradeWeb, value);
+								else System.out.println("Score out of bounds.");
+							} catch (Exception e) {
+								System.out.println("Invalid Score.");
+							}
 							break;
-						case "InsertClient":
+						case "show grades":
 						case "5":
-							System.out.println("Not yet implemented using UI");
+							thisProfessor.ShowAllGradings();
 							break;
-						case "RemoveClient":
+						//Except from selecting methods, you can choose to go back and get access...
+						//...as another type of user
+						case "select other user":
+						case "select user":
+						case "select":
+						case "back":
 						case "6":
-							thisSeller.RemoveClient();
-							break;
-						case "CreateBill":
-						case "7":
-							thisSeller.CreateBill();
-							System.out.println("Not yet implemented using UI");
-							break;
-						case "ChangeClientProgram":
-						case "8":
-							thisSeller.ChangeClientProgram();
+							answerUser = "back";
 							break;
 						default:
 					}
 					break;
-				case "Admin":
+				case "Secretary":
 				case "3":
-					answerAccountflag=true;
-					Admin thisAdmin = new Admin();
+					answerUserFlag = true;
+					if (!answerSecretaryFlag) thisSecretary = new Secretary(); //δημιουργία αν είναι η πρώτη φορά
+					answerSecretaryFlag = true;
+					
 					System.out.println(
-						"(1) login , (2) logout , (3) register ,"
-						+ "(4) CreateUser , (5) UpdateUser , (6) RemoveUser ,"
-						+ "(7) SearchUser , (8) ShowAllUsers"
-						+ "(9) AddProgram , (10) RemoveProgram, (11) ShowPrograms"
-					);
+							"(1) login , (2) logout , (3) show info, "
+							+"(4) create student, (5) create professor, (6) create course, (7) create grade,"
+							+"\n(8) rename course, (9) assing professor, (10) accept all enroll requests, "
+							+"(11) select other user"
+						);
 					answer = scanner.nextLine();
 					switch (answer) {
 						case "login":
 						case "1":
-							thisAdmin.LogIn();
+							thisSecretary.LogIn();
 							break;
 						case "logout":
 						case "2":
 							scanner.close();
-							thisAdmin.LogOut();
+							thisSecretary.LogOut();
 							break;
-						case "register":
+						case "show info":
 						case "3":
-							thisAdmin.Register();
+							thisSecretary.ShowInfo();
 							break;
-						case "CreateUser":
+						case "create student":
 						case "4":
-							thisAdmin.CreateUser();
+							System.out.println("Reference of this student instance will not get stored (demonstration only)");
+							thisSecretary.CreateStudent();
 							break;
-						case "UpdateUser":
+						case "create professor":
 						case "5":
-							thisAdmin.UpdateUser();
+							System.out.println("Reference of this professor instance will not get stored (demonstration only)");
+							thisSecretary.CreateProfessor();
 							break;
-						case "RemoveUser":
+						case "create course":
 						case "6":
-							thisAdmin.RemoveUser();
+							System.out.println("Reference of this course instance will not get stored (demonstration only)");
+							thisSecretary.CreateCourse();
 							break;
-						case "SearchUser":
+						case "create grade":
 						case "7":
-							thisAdmin.SearchUser();
+							System.out.println("Reference of this grade instance will not get stored (demonstration only)");
+							thisSecretary.CreateGrade();
 							break;
-						case "ShowAllUsers":
+						case "rename course":
 						case "8":
-							thisAdmin.ShowAllUsers();
+							System.out.println("(test enviroment) Give new name for 'thisCourseWeb':");
+							thisSecretary.UpdateCourseName(thisCourseWeb, CreateUsers.s.nextLine());
 							break;
-						case "AddProgram":
+						case "assign professor":
+						case "assign":
 						case "9":
-							thisAdmin.AddProgram();
+							System.out.println("(Automated action) Assign 'thisProfessor' to 'thisCourseWeb'");
+							thisSecretary.AssignProfessorToCourse(thisProfessor, thisCourseWeb);
 							break;
-						case "RemoveProgram":
+						case "accept all enroll requests":
+						case "accept all enroll request":
+						case "accept enroll requests":
+						case "accept enroll request":
+						case "accept requests":
+						case "accept request":
+						case "accept all":
+						case "accept":
 						case "10":
-							thisAdmin.RemoveProgram();
+							System.out.println("Accept all enroll requests for all course");
+							thisSecretary.AcceptAllEnrollRequests();
 							break;
-						case "ShowPrograms":
+						//Except from selecting methods, you can choose to go back and get access...
+						//...as another type of user
+						case "select other user":
+						case "select user":
+						case "select":
+						case "back":
 						case "11":
-							thisAdmin.ShowPrograms();
+							answerUser = "back";
 							break;
 						default:
 					}
 					break;
+					
+				case "back": //back can be an answer by the method that each user calls
+					//A user can select to login,show info etc but can...
+					//...also "go back" to selecting other user types
+					//so answerUser variable is modified by code and not using UI
+					System.out.println("Select User type (only for testing):");
+					System.out.println("(1) Student , (2) Professor , (3) Secretary");
+					answerUser = scanner.nextLine();
+					answerUserFlag = true;
+					break;
 				default:
-					answerAccountflag=false;
-					System.out.println("Incorrect Account");
+					answerUserFlag = false;
+					System.out.println("Incorrect User");
 			}
-		}while (answerAccountflag);
+		}while (answerUserFlag);
 		scanner.close();
 	}
-	*/
 }

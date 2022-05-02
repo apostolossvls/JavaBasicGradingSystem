@@ -54,14 +54,25 @@ public class User implements Serializable{
 	//UI
 	public void LogIn() {
 		System.out.println("Enter Username");
-		username = CreateUsers.s.nextLine();
+		String answerUsername = CreateUsers.s.nextLine();
 		System.out.println("Enter Password");
-		password = CreateUsers.s.nextLine();
-		System.out.println("Hello "+username+" (password: "+password+")");
+		String answerPassword = CreateUsers.s.nextLine();
+		if (answerPassword.equals(password) && answerUsername.equals(username)) {
+			System.out.println("Hello "+username+"!");
+		}
+		else{
+			System.out.println("Wrong credentials.");
+		}
 	}
 	
-	public void LogIn(String username, String password) {
-		System.out.println("Hello "+username+" (password: "+password+")");
+	//login with parameters (overloading login UI)
+	public void LogIn(String answerUsername, String answerPassword) {
+		if (answerPassword.equals(password) && answerUsername.equals(username)) {
+			System.out.println("Hello "+username+"!");
+		}
+		else{
+			System.out.println("Wrong credentials.");
+		}
 	}
 	
 	public void LogOut()  {

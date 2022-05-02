@@ -28,7 +28,7 @@ public class Professor extends User {
 		System.out.println("Enter Name");
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Surname");
-		SetName(CreateUsers.s.nextLine());
+		SetSurname(CreateUsers.s.nextLine());
 		System.out.println("Enter Registration Number");
 		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
 		
@@ -84,7 +84,8 @@ public class Professor extends User {
 	        	Student student = enu.nextElement(); //get next student
 	        	//Print out student's name and the grade on this course.
 	        	//Giving the student as key will return the score / value on the dictionary
-	        	System.out.println(student.GetName() +" | "+grade.get(student));
+	        	System.out.println("RegN: "+ student.GetRegistrationNumberToString() + " | "
+	        		+student.GetName() +" "+ student.GetSurname() +" | "+grade.get(student));
 	        }
 		}
 	}
