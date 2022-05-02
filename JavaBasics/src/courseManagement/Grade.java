@@ -184,7 +184,7 @@ public class Grade {
 	//Find a student in the dictionary of grades by the registration number 
 	Student FindStudent(Integer registrationNumber) {
 		Student student = null;
-		//empty enumeration to store. grades.keys returns an enumaration
+		//enumeration to store keys. grades.keys returns an enumeration
         Enumeration<Student> enu = grades.keys();
         //While enumeration has still elements 
         while (enu.hasMoreElements()) {

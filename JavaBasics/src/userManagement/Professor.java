@@ -15,7 +15,7 @@ public class Professor extends User {
 	private static final long serialVersionUID = -3819521436348570924L;
 	
 	//Professor info
-	private final String registrationNumber;
+	private final Integer registrationNumber;
 	
 	//Constructors
 	//Constructor with user interface
@@ -30,7 +30,7 @@ public class Professor extends User {
 		System.out.println("Enter Surname");
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Registration Number");
-		registrationNumber = CreateUsers.s.nextLine(); //final variable is initialized on constructor
+		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
 		
 		SetType(Type.Professor); //sets its type to Professor
 		
@@ -42,7 +42,7 @@ public class Professor extends User {
 	}
 	
 	//Constructor with parameters
-	public Professor(String newUsername, String newPassword, String newName, String newSurname, String newRegistrationNumber) {
+	public Professor(String newUsername, String newPassword, String newName, String newSurname, Integer newRegistrationNumber) {
 		SetName(newName);
 		SetUsername(newUsername);
 		SetPassword(newPassword);
@@ -60,7 +60,13 @@ public class Professor extends User {
 	
 	//Give a score/grade on a student on a Grade instance (Grade and Course objects are related)
 	public void GradeStudent(Student student, Grade grade,  Float value) {
-		grade.GiveGrade(student, value);
+		//check if the professor is the course's assigne professor
+		if (grade.GetCourse().GetAssignedProfessor() == this) {
+			grade.GiveGrade(student, value);
+		}
+		else {
+			System.out.println("Professor is not the assigned professor for this course.");
+		}
 	}
 	
 	//Show all grades of students of all the courses the professor is assigned
@@ -96,7 +102,7 @@ public class Professor extends User {
 		System.out.println("Username: " + GetUsername());
 		System.out.println("Name: " + GetName());
 		System.out.println("Surname: " + GetSurname());
-		System.out.println("Registration Number: " + GetRegistrationNumber());
+		System.out.println("Registration Number: " + getRegistrationNumberToString());
 	}
 	
 	//Search on allUser static list by a given name and surname
@@ -113,12 +119,12 @@ public class Professor extends User {
 	}
 	
 	//Search on allUser static list by the registration number
-	public static Professor FindByRegistrationNumber(String regNumber) {
+	public static Professor FindByRegistrationNumber(Integer regNumber) {
 		for (int i = 0; i < allUsers.size(); i++) {
 			User user = allUsers.get(i);
 			if (user.GetType() == Type.Professor) { //check if user is type of professor
 				Professor professor = (Professor) user; //cast
-				if (professor.GetRegistrationNumber() == regNumber){
+				if (professor.getRegistrationNumber() == regNumber){
 					return professor;
 				}
 			}
@@ -127,7 +133,11 @@ public class Professor extends User {
 	}
 	
 	//getters
-	public String GetRegistrationNumber() {
+	public Integer getRegistrationNumber() {
 		return registrationNumber;
+	}
+	
+	public String getRegistrationNumberToString() {
+		return registrationNumber.toString();
 	}
 }

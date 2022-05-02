@@ -86,6 +86,11 @@ public class Secretary extends User {
 		System.out.println("Surname: " + GetSurname());
 	}
 	
+	//Assign a Professor to a Course
+	public void AssignProfessorToCourse(Professor professor, Course course) {
+		course.SetAssignedProfessor(professor);
+	}
+	
 	//Takes an EnrollCourseRequest and adds it to the pending list if it was not included.
 	//Used by Student class.
 	public static void StudentEnrollCourse(EnrollCourseRequest request) {

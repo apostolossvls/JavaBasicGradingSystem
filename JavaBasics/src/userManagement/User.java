@@ -80,9 +80,6 @@ public class User implements Serializable{
 	public void LogOut()  {
 		//saves all users' list to a file
 		//SaveManager.Save((Object) allUsers, "users.txt");
-
-		//saves all programs' list to a file
-		//SaveManager.Save((Object) Admin.programs, "programs.txt");
 		
 		System.out.println("Logout");
 		System.exit(0);
