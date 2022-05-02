@@ -33,21 +33,8 @@ public class User implements Serializable{
 	//Constructors
 	//Constructor with user interface
 	public User() {
-		System.out.println("Creating User:");
-		System.out.println("Enter Username");
-		SetUsername(CreateUsers.s.nextLine());
-		System.out.println("Enter Password");
-		SetPassword(CreateUsers.s.nextLine());
-		System.out.println("Enter Name");
-		SetName(CreateUsers.s.nextLine());
-		System.out.println("Enter Surname");
-		SetName(CreateUsers.s.nextLine());
-		SetType(Type.User); //empty value
-		
 		allUsers.add(this); //store on list
 		usersCounter++;
-		
-		System.out.println("'User' created.");
 	}
 	
 	//Constructor with parameters

@@ -1,13 +1,17 @@
 package courseManagement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import fileManagement.SaveManager;
 import mainpackage.CreateUsers;
 import userManagement.Professor;
 
-public class Course {
+public class Course implements Serializable{
 	
+	//auto generated serialVersionUID
+	private static final long serialVersionUID = 2929680463251857121L;
+
 	//static variable list of all courses
 	public static ArrayList<Course> allCourses  = new ArrayList<>();
 	

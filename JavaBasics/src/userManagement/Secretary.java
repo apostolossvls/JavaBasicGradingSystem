@@ -31,10 +31,6 @@ public class Secretary extends User {
 		SetName(CreateUsers.s.nextLine());
 		SetType(Type.Secretary); //sets its type to Secretary
 		
-		//add secretary to allUsers list and increase counter
-		User.allUsers.add(this);
-		usersCounter++;
-		
 		System.out.println("'Secretary' created.");
 	}
 	
@@ -45,10 +41,6 @@ public class Secretary extends User {
 		SetPassword(newPassword);
 		SetSurname(newSurname);
 		SetType(Type.Secretary); //sets its type to Secretary
-		
-		//add secretary to allUsers list and increase counter
-		User.allUsers.add(this);
-		usersCounter++;
 		
 		System.out.println("'Secretary' created.");
 	}
@@ -74,8 +66,8 @@ public class Secretary extends User {
 	}
 	
 	//create new grade object using UI constructor
-	public void UpdateCourseName() {
-		//TODO
+	public void UpdateCourseName(Course course, String newName) {
+		course.SetName(newName);
 		System.out.println("'Updated.'");
 	}
 	
@@ -89,6 +81,7 @@ public class Secretary extends User {
 	//Assign a Professor to a Course
 	public void AssignProfessorToCourse(Professor professor, Course course) {
 		course.SetAssignedProfessor(professor);
+		System.out.println("'Professor assinged.'");
 	}
 	
 	//Takes an EnrollCourseRequest and adds it to the pending list if it was not included.

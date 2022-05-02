@@ -1,9 +1,14 @@
 package courseManagement;
 
+import java.io.Serializable;
+
 import userManagement.Student;
 
 //Small helper Class Containing A Student and a Course that they want to enroll
-public class EnrollCourseRequest {
+public class EnrollCourseRequest implements Serializable{
+	
+	//auto generated serialVersionUID
+	private static final long serialVersionUID = -6434878626892446899L;
 	
 	private Student student;
 	private Course course;

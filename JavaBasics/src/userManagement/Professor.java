@@ -34,10 +34,6 @@ public class Professor extends User {
 		
 		SetType(Type.Professor); //sets its type to Professor
 		
-		//add professor to allUsers list and increase counter
-		User.allUsers.add(this);
-		usersCounter++;
-		
 		System.out.println("'Professor' created.");
 	}
 	
@@ -50,10 +46,6 @@ public class Professor extends User {
 		registrationNumber = newRegistrationNumber;
 		
 		SetType(Type.Professor); //sets its type to Professor
-		
-		//add professor to allUsers list and increase counter
-		User.allUsers.add(this);
-		usersCounter++;
 		
 		System.out.println("'Professor' created.");
 	}
@@ -124,7 +116,7 @@ public class Professor extends User {
 			User user = allUsers.get(i);
 			if (user.GetType() == Type.Professor) { //check if user is type of professor
 				Professor professor = (Professor) user; //cast
-				if (professor.getRegistrationNumber() == regNumber){
+				if (professor.getRegistrationNumber().intValue() == regNumber){
 					return professor;
 				}
 			}

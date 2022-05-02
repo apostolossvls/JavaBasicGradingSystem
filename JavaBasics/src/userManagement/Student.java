@@ -31,16 +31,14 @@ public class Student extends User {
 		System.out.println("Enter Name");
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Surname");
-		SetName(CreateUsers.s.nextLine());
+		SetSurname(CreateUsers.s.nextLine());
 		System.out.println("Enter Registration Number");
 		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
 		
 		SetType(Type.Student); //sets its type to Student
 		
-		//Add object to both generic and specific list
-		User.allUsers.add(this);
+		//Add object to specific list
 		Student.allStudents.add(this);
-		usersCounter++; //userCounter is inherited from User
 		
 		System.out.println("'Student' created.");
 	}
@@ -54,10 +52,8 @@ public class Student extends User {
 		registrationNumber = newRegistrationNumber; //final variable is initialized on constructor
 		SetType(Type.Student); //sets its type to Student
 		
-		//Add object to both generic and specific list
-		User.allUsers.add(this);
+		//Add object to specific list
 		Student.allStudents.add(this);
-		usersCounter++; //userCounter is inherited from User
 		
 		System.out.println("'Student' created.");
 	}
@@ -76,6 +72,7 @@ public class Student extends User {
 		EnrollCourseRequest request = new EnrollCourseRequest(this, course);
 		//Request call static method on Secretary class
 		Secretary.StudentEnrollCourse(request);
+		System.out.println("Request was made.");
 	}
 	
 	//Show all grades of this student

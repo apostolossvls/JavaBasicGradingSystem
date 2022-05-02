@@ -1,23 +1,27 @@
 package courseManagement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 import fileManagement.SaveManager;
 import mainpackage.CreateUsers;
 import userManagement.Professor;
 import userManagement.Student;
 
-public class Grade {
+public class Grade implements Serializable{
 	
+	//auto generated serialVersionUID
+	private static final long serialVersionUID = 2518546822920987814L;
+
 	//static variable list of all grades
 	public static ArrayList<Grade> allGrades  = new ArrayList<>();
 	
 	//Grade's info
 	private Course course;
 	private int year;
-	private Dictionary<Student, Float> grades;
+	private Hashtable<Student, Float> grades = new Hashtable<Student, Float>(); //Like Dictionary
 	
 	//overload constructor using User Input
 	public Grade() {
@@ -54,10 +58,10 @@ public class Grade {
 	}
 	
 	//overload constructor with given parameters
-	public Grade(Course course, int year, Dictionary<Student, Float> grades) {
+	public Grade(Course course, int year, Hashtable<Student, Float> grades) {
 		this.course = course;
 		this.year = year;
-		this.grades = grades;
+		if (grades!= null) this.grades = grades;
 		
 		//Add this to static list
 		Grade.allGrades.add(this);
@@ -110,7 +114,7 @@ public class Grade {
 		return year;
 	}
 	
-	public Dictionary<Student, Float> GetGrades() {
+	public Hashtable<Student, Float> GetGrades() {
 		return grades;
 	}
 	
@@ -160,7 +164,7 @@ public class Grade {
 			Grade gradeObj = allGrades.get(i);
 			if (gradeObj == null) continue;
 			
-			//Get score Value with key "student" on the "grades" Dictionary
+			//Get score Value with key "student" on the "grades" hashtable
 			float score = gradeObj.grades.get(student);
 			if (score == -1.0F) continue; //score has value -1.0F when student is not yet graded, as a helping value
 			
@@ -181,7 +185,7 @@ public class Grade {
 		return proffessorsGrades;
 	}
 	
-	//Find a student in the dictionary of grades by the registration number 
+	//Find a student in the hashtable of grades by the registration number 
 	Student FindStudent(Integer registrationNumber) {
 		Student student = null;
 		//enumeration to store keys. grades.keys returns an enumeration
@@ -205,7 +209,7 @@ public class Grade {
 		this.year = year;
 	}
 	
-	public void SetStudents(Dictionary<Student, Float> grades) {
+	public void SetStudents(Hashtable<Student, Float> grades) {
 		this.grades = grades;
 	}
 }

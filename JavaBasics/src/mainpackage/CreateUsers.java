@@ -3,8 +3,8 @@ package mainpackage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import fileManagement.ImportStudent;
-import fileManagement.SaveManager;
+import courseManagement.*;
+import fileManagement.*;
 import userManagement.*;
 
 import java.io.*;
@@ -23,13 +23,6 @@ public class CreateUsers implements Serializable {
 		Object objUsers = SaveManager.Load("users.txt");
 		if (objUsers != null) {
 			User.allUsers = (ArrayList<User>) objUsers;
-			System.out.println("Data retrieved successfully.");
-		}
-		
-		//Προσπάθεια ανάγνωσης λίστας programs από αρχείο
-		objUsers = SaveManager.Load("programs.txt");
-		if (objUsers != null) {
-			Admin.programs = (ArrayList<Program>) objUsers;
 			System.out.println("Data retrieved successfully.");
 		}
 		*/
@@ -77,37 +70,104 @@ public class CreateUsers implements Serializable {
 	static void Auto() throws FileNotFoundException {
 		
 		//create 3 users one of each
-		System.out.println("* Creating 3  users.");
-		Student thisStudent = new Student();
-		//Admin thisAdmin = new Admin();
-		System.out.println("* 3  users got created. \n");
+		System.out.println("* Creating 3  users. One of each:");
+		
+		System.out.println("* Creating 'Secretary' with username:'GladOS', password: '12345', name: 'Mary', surname: 'Jane'");
+		Secretary thisSecretary = new Secretary("GladOS", "12345", "Mary", "Jane");
+		
+		System.out.println("* Creating 'Professor' with username:'ProfessorX', password: '77777', name: 'Charles', surname: 'Xavier', registrationNumber: '22100'");
+		Professor thisProfessor = new Professor("ProfessorX", "77777", "Charles", "Xavier", 22100);
+		
+		System.out.println("* Creating 'Student' with username:'NotSpiderman', password: '88888', name: 'Peter', surname: 'Parker', registrationNumber: '22022'");
+		Student thisStudent = new Student("NotSpiderman", "88888", "Peter", "Parker", 22022);
+		
+		System.out.println("* All users created. \n");
+		
+		System.out.println("* Creating 2  courses:");
+		
+		System.out.println("* Creating 'Course' with name:'Web', a description and assigned professor: 'ProfessorX'");
+		Course courseWeb = new Course("Web", "How to create web applications", thisProfessor);
+		System.out.println("* Show 'Web' course description:");
+		System.out.println(courseWeb.GetDescription());
+		
+		System.out.println("* Creating 'Course' with name:'Java', a description and assigned professor: 'ProfessorX'");
+		Course courseJava = new Course("Java", "How to create java applications", thisProfessor);
+		System.out.println("* Show 'Java' course description:");
+		System.out.println(courseJava.GetDescription());
+		
+		System.out.println("* All courses created. \n");
+		
+		System.out.println("* Creating 2 grading objects for the courses:");
+		
+		System.out.println("* Creating 'Grade' with course:'Web', year: '2022'");
+		Grade gradeWeb = new Grade(courseWeb, 2022, null);
+		
+		System.out.println("* Creating 'Grade' with course:'Java', year: '2022'");
+		Grade gradeJava = new Grade(courseJava, 2022, null);
+		
+		System.out.println("* All grading objects created. \n");
 		
 		System.out.println("* Starting automatic calling methods.\n");
 		
-		//calling methods "register"
-		System.out.println("* Registering all users:");
-		System.out.println("* Register 'Student' with username:'foo1', password: '12345', name: 'nameFoo1', surname: 'dummy1', Registration Number: '12345'");
-		//thisStudent.Register("foo1", "12345", "nameFoo1", "dummy1", "p12345");
-		System.out.println("* Register 'Seller' with username:'foo2', password: '12345', name: 'nameFoo2', surname: 'dummy2'");
-		//thisSeller.Register("foo2", "12345", "nameFoo2", "dummy2");
-		System.out.println("* Register 'Administrator' with username:'foo3', password: '12345', name: 'nameFoo3', surname: 'dummy3'");
-		//thisAdmin.Register("foo3", "12345", "nameFoo3", "dummy3");
-		System.out.println("* All accounts registered. \n");
-		
-		//calling methods "Login"
+		//calling methods "Login" which derives from User class.
 		System.out.println("* Login with all users:");
-		System.out.println("* Login 'Client' with username:'foo1', password: '12345'");
-		thisStudent.LogIn("foo1", "12345");
-		System.out.println("* Login 'Seller' with username:'foo2', password: '12345'");
-		//thisSeller.LogIn("foo2", "12345");
-		System.out.println("* Login 'Administrator' with username:'foo3', password: '12345'");
-		//thisAdmin.LogIn("foo3", "12345");
-		System.out.println("* All accounts are logged in. \n");
+		System.out.println("* Login 'Student' with username:'NotSpiderman', password: '88888'");
+		thisStudent.LogIn("NotSpiderman", "88888");
+		System.out.println("* Login 'Professor' with username:'ProfessorX', password: '77777'");
+		thisProfessor.LogIn("ProfessorX", "77777");
+		System.out.println("* Login 'Secretary' with username:'GladOS', password: '12345'");
+		thisSecretary.LogIn("GladOS", "12345");
+		System.out.println("* All accounts logged in. \n");
 		
 		System.out.println("* Import from file \n");
-		ImportStudent.Import("D:\\unity projects\\temp\\new 3.txt");
-	
+		//ImportStudent.Import("D:\\unity projects\\temp\\new 3.txt");
 		
+		System.out.println("*--- Secretary methods ---*\n");
+		
+		System.out.println("* Show 'Secretary' info");
+		thisSecretary.ShowInfo();
+		
+		//Create extra professor and student
+		System.out.println("* 'Secretary' creates a 'Student' (Waiting for inputs):");
+		thisSecretary.CreateStudent();
+		System.out.println("* 'Secretary' creates a 'Professor' (Waiting for inputs):");
+		thisSecretary.CreateProfessor();
+		
+		System.out.println("* 'Secretary' updates course 'Web' name to 'WebApps'");
+		thisSecretary.UpdateCourseName(courseWeb , "WebApps");
+		
+		System.out.println("* 'Secretary' assign a professor to a course (Update assigned professor)");
+		thisSecretary.AssignProfessorToCourse(thisProfessor, courseJava);
+		
+		System.out.println("* Other methods will be demonstrated later. (Accept enroll requests etc)\n");
+		
+		System.out.println("*--- Professor methods ---*\n");
+		
+		System.out.println("* Show 'Professor' info");
+		thisProfessor.ShowInfo();
+		
+		System.out.println("* Call static method to find a professor by name 'Charles' and surname 'Xavier'");
+		Professor foundProfessor = Professor.FindByNameSurname("Charles", "Xavier");
+		if (foundProfessor != null) {
+			System.out.println("* Found, and the Professor's infos are:'");
+			foundProfessor.ShowInfo();
+		}
+		System.out.println("* Call static method to find a professor by registration number ('22100'):");
+		foundProfessor = Professor.FindByRegistrationNumber(22100);
+		if (foundProfessor != null) {
+			System.out.println("* Found, and the Professor's infos are:'");
+			foundProfessor.ShowInfo();
+		}
+		
+		System.out.println("* 'ProfessorX' gives student 'NotSpiderman' a score of 9.0 on course 'WebApps':");
+		thisProfessor.GradeStudent(thisStudent, gradeWeb, 9.0F);
+		System.out.println("* Completed");
+		System.out.println("* 'ProfessorX' gives student 'NotSpiderman' a score of 8.5 on course 'Java':");
+		thisProfessor.GradeStudent(thisStudent, gradeJava, 8.5F);
+		System.out.println("* Completed");
+		
+		System.out.println("* Show all of 'ProfessorX' gradings in all of his courses:");
+		thisProfessor.ShowAllGradings();
 		
 		//admin
 		/*
@@ -187,9 +247,8 @@ public class CreateUsers implements Serializable {
 		
 		System.out.println("* Shows info of 'Student':");
 		thisStudent.ShowInfo();
-		System.out.println("* Completed.\n");
 		
-		System.out.println("* Finally, Log out from a user and save user to file:");
+		System.out.println("* Finally, Log out from a user:");
 		thisStudent.LogOut();
 	}
 	
