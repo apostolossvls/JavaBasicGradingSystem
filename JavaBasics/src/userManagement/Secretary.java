@@ -15,7 +15,7 @@ public class Secretary extends User {
 	private static final long serialVersionUID = -3819521436348570924L;
 	
 	//Secretary info
-	private static ArrayList<EnrollCourseRequest> pendingCourseRequests;
+	private static ArrayList<EnrollCourseRequest> pendingCourseRequests = new ArrayList<EnrollCourseRequest>();
 	
 	//Constructors
 	//Constructor with user interface
@@ -28,7 +28,7 @@ public class Secretary extends User {
 		System.out.println("Enter Name");
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Surname");
-		SetName(CreateUsers.s.nextLine());
+		SetSurname(CreateUsers.s.nextLine());
 		SetType(Type.Secretary); //sets its type to Secretary
 		
 		System.out.println("'Secretary' created.");
@@ -86,9 +86,13 @@ public class Secretary extends User {
 	
 	//Takes an EnrollCourseRequest and adds it to the pending list if it was not included.
 	//Used by Student class.
-	public static void StudentEnrollCourse(EnrollCourseRequest request) {
+	public static int StudentEnrollCourse(EnrollCourseRequest request) {
 		if (!pendingCourseRequests.contains(request)) {
 			pendingCourseRequests.add(request);
+			return 0;
+		}
+		else {
+			return 1;
 		}
 	}
 	
@@ -99,6 +103,10 @@ public class Secretary extends User {
 		//Add the student in the grading list of the course ready to be given a grade.
 		//Value of -1.0F is a helper float value meaning that the student has not been given a grade yet.
 		grade.GiveGrade(request.getStudent(), -1.0F);
+		if (pendingCourseRequests.contains(request)) pendingCourseRequests.remove(request);
+		System.out.println("Accepted Request | Registration Number: "
+				+  request.getStudent().GetRegistrationNumber().toString()
+				+ " , Course Name: " + request.getCourse().GetName());
 	}
 	
 	//For each pending enroll request, call AcceptEnrollRequest method

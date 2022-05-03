@@ -75,7 +75,7 @@ public class Grade implements Serializable{
 		//TODO try..catch null
 		//With "put", the value gets updated if key exists of it gets added if it doesn't.
 		grades.put(student, value);
-		
+		System.out.println("Grade was given to (RegN): "+student.GetRegistrationNumberToString());
 	}
 	
 	//overloading GiveGrade with UI and calling AddGrade with parameters
@@ -159,19 +159,28 @@ public class Grade implements Serializable{
 	
 	//Prints out all the grades that the student has been given a score
 	public static void GetStudentAllGrades(Student student) {
+		boolean foundAtLeastOne = false;
 		for (int i = 0; i < allGrades.size(); i++) {
 			//Get this course's grading object
 			Grade gradeObj = allGrades.get(i);
-			if (gradeObj == null) continue;
-			
-			//Get score Value with key "student" on the "grades" hashtable
-			float score = gradeObj.grades.get(student);
+			if (gradeObj == null) continue; //skip
+			if (gradeObj.grades == null) continue; //skip
+			float score;
+			try {
+				//Get score Value with key "student" on the "grades" hashtable
+				score = gradeObj.grades.get(student);
+			} catch (java.lang.NullPointerException e) {
+				continue;
+			}
 			if (score == -1.0F) continue; //score has value -1.0F when student is not yet graded, as a helping value
 			
 			String courseName = gradeObj.GetCourse().GetName();
 			//TODO return values and not print out
 			System.out.println("Course: "+courseName+" | "+score);
+			foundAtLeastOne = true;
 		}
+		
+		if (!foundAtLeastOne) System.out.println("No grade was found.");
 	}
 	
 	public static ArrayList<Grade> GetProfessorGradings(Professor professor) {

@@ -67,12 +67,14 @@ public class Student extends User {
 	}
 	
 	//Enroll to a course, added to a pending list on Secretary class
-	public void EnrollCourse(Course course) {
+	public EnrollCourseRequest EnrollCourse(Course course) {
 		//crate a new EnrollCourseRequest instance for this student
 		EnrollCourseRequest request = new EnrollCourseRequest(this, course);
 		//Request call static method on Secretary class
-		Secretary.StudentEnrollCourse(request);
-		System.out.println("Request was made.");
+		int requestReturn = Secretary.StudentEnrollCourse(request);
+		if (requestReturn == 0) System.out.println("Request was made.");
+		else System.out.println("Request already exists");
+		return request;
 	}
 	
 	//Show all grades of this student
@@ -84,7 +86,7 @@ public class Student extends User {
 	//Find Student by Registration Number
 	public static Student FindByRegistrationNumber(Integer target) {
 		for (int i = 0; i < allStudents.size(); i++) {
-			if (allStudents.get(i).GetRegistrationNumber() == target) {
+			if (allStudents.get(i).GetRegistrationNumber().intValue() == target) {
 				return allStudents.get(i);
 			}
 		}
