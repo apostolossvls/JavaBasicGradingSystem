@@ -17,14 +17,11 @@ public class CreateUsers implements Serializable {
 	
 	public static void main(String[] args) throws Exception {
 		
-		/*
-		//Προσπάθεια ανάγνωσης λίστας allUsers από αρχείο
-		Object objUsers = SaveManager.Load("users.txt");
-		if (objUsers != null) {
-			User.allUsers = (ArrayList<User>) objUsers;
-			System.out.println("Data retrieved successfully.");
-		}
-		*/
+		//Προσπάθεια ανάγνωσης λίστας μαθητών από αρχείο
+		System.out.println("* Import from file:\n");
+		ImportStudent.Import("import.txt");
+		System.out.println("\n*Import completed.\n");
+		
 		//Γίνεται επιλογή μεταξύ 2 λειτουργιών
 			//1. Αυτόματη λειτουργεία όπου δίχνει ενδεικτικά όλα τα αντικείμενα
 				//και μεθόδους του πργράμματος
@@ -117,10 +114,7 @@ public class CreateUsers implements Serializable {
 		System.out.println("* Login 'Secretary' with username:'GladOS', password: '12345'");
 		thisSecretary.LogIn("GladOS", "12345");
 		System.out.println("* All accounts logged in. \n");
-		
-		System.out.println("* Import from file \n");
-		//ImportStudent.Import("D:\\unity projects\\temp\\new 3.txt");
-		ImportStudent.Import("import.txt");
+
 		
 		
 		
