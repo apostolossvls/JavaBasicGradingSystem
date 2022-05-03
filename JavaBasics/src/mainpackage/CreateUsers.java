@@ -121,6 +121,7 @@ public class CreateUsers implements Serializable {
 		
 		System.out.println("* Import from file \n");
 		//ImportStudent.Import("D:\\unity projects\\temp\\new 3.txt");
+		ImportStudent.Import("import.txt");
 		
 		System.out.println("*--- Secretary methods ---*\n");
 		
