@@ -24,7 +24,8 @@ public class Student extends User {
 	//Constructor with user interface
 	public Student() {
 		int exceptionCheck = 0;
-		while(exceptionCheck = 0){
+		while(exceptionCheck == 0){
+			exceptionCheck = 1;
 			try{
 				System.out.println("Creating Student:");
 				System.out.println("Enter Username");
@@ -37,18 +38,13 @@ public class Student extends User {
 				SetName(CreateUsers.s.nextLine());
 				System.out.println("Enter Registration Number");
 				registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
-
-				if(registrationNumber != int){
-					throw new CustomException();
-					}
-				else{ 
-					exceptionCheck = 1;
-					}
+					
 				
 				}
-			catch (CustomException exception){
-				System.out.println(exception + "Something went wrong, please try again.")
-			}
+			catch (NumberFormatException exception){
+				System.out.println(exception + "Something went wrong, please try again.");
+				exceptionCheck =0;
+				}
 			}
 		
 		SetType(Type.Student); //sets its type to Student
