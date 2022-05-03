@@ -33,8 +33,21 @@ public class User implements Serializable{
 	//Constructors
 	//Constructor with user interface
 	public User() {
+		System.out.println("Creating User:");
+		System.out.println("Enter Username");
+		SetUsername(CreateUsers.s.nextLine());
+		System.out.println("Enter Password");
+		SetPassword(CreateUsers.s.nextLine());
+		System.out.println("Enter Name");
+		SetName(CreateUsers.s.nextLine());
+		System.out.println("Enter Surname");
+		SetName(CreateUsers.s.nextLine());
+		SetType(Type.User); //empty value
+		
 		allUsers.add(this); //store on list
 		usersCounter++;
+		
+		System.out.println("'User' created.");
 	}
 	
 	//Constructor with parameters
@@ -54,30 +67,22 @@ public class User implements Serializable{
 	//UI
 	public void LogIn() {
 		System.out.println("Enter Username");
-		String answerUsername = CreateUsers.s.nextLine();
+		username = CreateUsers.s.nextLine();
 		System.out.println("Enter Password");
-		String answerPassword = CreateUsers.s.nextLine();
-		if (answerPassword.equals(password) && answerUsername.equals(username)) {
-			System.out.println("Hello "+username+"!");
-		}
-		else{
-			System.out.println("Wrong credentials.");
-		}
+		password = CreateUsers.s.nextLine();
+		System.out.println("Hello "+username+" (password: "+password+")");
 	}
 	
-	//login with parameters (overloading login UI)
-	public void LogIn(String answerUsername, String answerPassword) {
-		if (answerPassword.equals(password) && answerUsername.equals(username)) {
-			System.out.println("Hello "+username+"!");
-		}
-		else{
-			System.out.println("Wrong credentials.");
-		}
+	public void LogIn(String username, String password) {
+		System.out.println("Hello "+username+" (password: "+password+")");
 	}
 	
 	public void LogOut()  {
 		//saves all users' list to a file
 		//SaveManager.Save((Object) allUsers, "users.txt");
+
+		//saves all programs' list to a file
+		//SaveManager.Save((Object) Admin.programs, "programs.txt");
 		
 		System.out.println("Logout");
 		System.exit(0);

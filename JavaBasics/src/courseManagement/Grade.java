@@ -1,27 +1,23 @@
 package courseManagement;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.Enumeration;
-import java.util.Hashtable;
 
 import fileManagement.SaveManager;
 import mainpackage.CreateUsers;
 import userManagement.Professor;
 import userManagement.Student;
 
-public class Grade implements Serializable{
+public class Grade {
 	
-	//auto generated serialVersionUID
-	private static final long serialVersionUID = 2518546822920987814L;
-
 	//static variable list of all grades
 	public static ArrayList<Grade> allGrades  = new ArrayList<>();
 	
 	//Grade's info
 	private Course course;
 	private int year;
-	private Hashtable<Student, Float> grades = new Hashtable<Student, Float>(); //Like Dictionary
+	private Dictionary<Student, Float> grades;
 	
 	//overload constructor using User Input
 	public Grade() {
@@ -58,10 +54,10 @@ public class Grade implements Serializable{
 	}
 	
 	//overload constructor with given parameters
-	public Grade(Course course, int year, Hashtable<Student, Float> grades) {
+	public Grade(Course course, int year, Dictionary<Student, Float> grades) {
 		this.course = course;
 		this.year = year;
-		if (grades!= null) this.grades = grades;
+		this.grades = grades;
 		
 		//Add this to static list
 		Grade.allGrades.add(this);
@@ -75,7 +71,7 @@ public class Grade implements Serializable{
 		//TODO try..catch null
 		//With "put", the value gets updated if key exists of it gets added if it doesn't.
 		grades.put(student, value);
-		System.out.println("Grade was given to (RegN): "+student.GetRegistrationNumberToString());
+		
 	}
 	
 	//overloading GiveGrade with UI and calling AddGrade with parameters
@@ -114,7 +110,7 @@ public class Grade implements Serializable{
 		return year;
 	}
 	
-	public Hashtable<Student, Float> GetGrades() {
+	public Dictionary<Student, Float> GetGrades() {
 		return grades;
 	}
 	
@@ -159,28 +155,19 @@ public class Grade implements Serializable{
 	
 	//Prints out all the grades that the student has been given a score
 	public static void GetStudentAllGrades(Student student) {
-		boolean foundAtLeastOne = false;
 		for (int i = 0; i < allGrades.size(); i++) {
 			//Get this course's grading object
 			Grade gradeObj = allGrades.get(i);
-			if (gradeObj == null) continue; //skip
-			if (gradeObj.grades == null) continue; //skip
-			float score;
-			try {
-				//Get score Value with key "student" on the "grades" hashtable
-				score = gradeObj.grades.get(student);
-			} catch (java.lang.NullPointerException e) {
-				continue;
-			}
+			if (gradeObj == null) continue;
+			
+			//Get score Value with key "student" on the "grades" Dictionary
+			float score = gradeObj.grades.get(student);
 			if (score == -1.0F) continue; //score has value -1.0F when student is not yet graded, as a helping value
 			
 			String courseName = gradeObj.GetCourse().GetName();
 			//TODO return values and not print out
 			System.out.println("Course: "+courseName+" | "+score);
-			foundAtLeastOne = true;
 		}
-		
-		if (!foundAtLeastOne) System.out.println("No grade was found.");
 	}
 	
 	public static ArrayList<Grade> GetProfessorGradings(Professor professor) {
@@ -194,10 +181,10 @@ public class Grade implements Serializable{
 		return proffessorsGrades;
 	}
 	
-	//Find a student in the hashtable of grades by the registration number 
+	//Find a student in the dictionary of grades by the registration number 
 	Student FindStudent(Integer registrationNumber) {
 		Student student = null;
-		//enumeration to store keys. grades.keys returns an enumeration
+		//empty enumeration to store. grades.keys returns an enumaration
         Enumeration<Student> enu = grades.keys();
         //While enumeration has still elements 
         while (enu.hasMoreElements()) {
@@ -218,7 +205,7 @@ public class Grade implements Serializable{
 		this.year = year;
 	}
 	
-	public void SetStudents(Hashtable<Student, Float> grades) {
+	public void SetStudents(Dictionary<Student, Float> grades) {
 		this.grades = grades;
 	}
 }

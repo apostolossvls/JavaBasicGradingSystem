@@ -15,7 +15,7 @@ public class Professor extends User {
 	private static final long serialVersionUID = -3819521436348570924L;
 	
 	//Professor info
-	private final Integer registrationNumber;
+	private final String registrationNumber;
 	
 	//Constructors
 	//Constructor with user interface
@@ -28,17 +28,21 @@ public class Professor extends User {
 		System.out.println("Enter Name");
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Surname");
-		SetSurname(CreateUsers.s.nextLine());
+		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Registration Number");
-		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
+		registrationNumber = CreateUsers.s.nextLine(); //final variable is initialized on constructor
 		
 		SetType(Type.Professor); //sets its type to Professor
+		
+		//add professor to allUsers list and increase counter
+		User.allUsers.add(this);
+		usersCounter++;
 		
 		System.out.println("'Professor' created.");
 	}
 	
 	//Constructor with parameters
-	public Professor(String newUsername, String newPassword, String newName, String newSurname, Integer newRegistrationNumber) {
+	public Professor(String newUsername, String newPassword, String newName, String newSurname, String newRegistrationNumber) {
 		SetName(newName);
 		SetUsername(newUsername);
 		SetPassword(newPassword);
@@ -47,18 +51,16 @@ public class Professor extends User {
 		
 		SetType(Type.Professor); //sets its type to Professor
 		
+		//add professor to allUsers list and increase counter
+		User.allUsers.add(this);
+		usersCounter++;
+		
 		System.out.println("'Professor' created.");
 	}
 	
 	//Give a score/grade on a student on a Grade instance (Grade and Course objects are related)
 	public void GradeStudent(Student student, Grade grade,  Float value) {
-		//check if the professor is the course's assigne professor
-		if (grade.GetCourse().GetAssignedProfessor() == this) {
-			grade.GiveGrade(student, value);
-		}
-		else {
-			System.out.println("Professor is not the assigned professor for this course.");
-		}
+		grade.GiveGrade(student, value);
 	}
 	
 	//Show all grades of students of all the courses the professor is assigned
@@ -84,8 +86,7 @@ public class Professor extends User {
 	        	Student student = enu.nextElement(); //get next student
 	        	//Print out student's name and the grade on this course.
 	        	//Giving the student as key will return the score / value on the dictionary
-	        	System.out.println("RegN: "+ student.GetRegistrationNumberToString() + " | "
-	        		+student.GetName() +" "+ student.GetSurname() +" | "+grade.get(student));
+	        	System.out.println(student.GetName() +" | "+grade.get(student));
 	        }
 		}
 	}
@@ -95,7 +96,7 @@ public class Professor extends User {
 		System.out.println("Username: " + GetUsername());
 		System.out.println("Name: " + GetName());
 		System.out.println("Surname: " + GetSurname());
-		System.out.println("Registration Number: " + getRegistrationNumberToString());
+		System.out.println("Registration Number: " + GetRegistrationNumber());
 	}
 	
 	//Search on allUser static list by a given name and surname
@@ -112,12 +113,12 @@ public class Professor extends User {
 	}
 	
 	//Search on allUser static list by the registration number
-	public static Professor FindByRegistrationNumber(Integer regNumber) {
+	public static Professor FindByRegistrationNumber(String regNumber) {
 		for (int i = 0; i < allUsers.size(); i++) {
 			User user = allUsers.get(i);
 			if (user.GetType() == Type.Professor) { //check if user is type of professor
 				Professor professor = (Professor) user; //cast
-				if (professor.getRegistrationNumber().intValue() == regNumber){
+				if (professor.GetRegistrationNumber() == regNumber){
 					return professor;
 				}
 			}
@@ -126,11 +127,7 @@ public class Professor extends User {
 	}
 	
 	//getters
-	public Integer getRegistrationNumber() {
+	public String GetRegistrationNumber() {
 		return registrationNumber;
-	}
-	
-	public String getRegistrationNumberToString() {
-		return registrationNumber.toString();
 	}
 }

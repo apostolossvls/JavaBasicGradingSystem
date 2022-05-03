@@ -23,22 +23,40 @@ public class Student extends User {
 	//Constructors
 	//Constructor with user interface
 	public Student() {
-		System.out.println("Creating Student:");
-		System.out.println("Enter Username");
-		SetUsername(CreateUsers.s.nextLine());
-		System.out.println("Enter Password");
-		SetPassword(CreateUsers.s.nextLine());
-		System.out.println("Enter Name");
-		SetName(CreateUsers.s.nextLine());
-		System.out.println("Enter Surname");
-		SetSurname(CreateUsers.s.nextLine());
-		System.out.println("Enter Registration Number");
-		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
+		int exceptionCheck = 0;
+		while(exceptionCheck = 0){
+			try{
+				System.out.println("Creating Student:");
+				System.out.println("Enter Username");
+				SetUsername(CreateUsers.s.nextLine());
+				System.out.println("Enter Password");
+				SetPassword(CreateUsers.s.nextLine());
+				System.out.println("Enter Name");
+				SetName(CreateUsers.s.nextLine());
+				System.out.println("Enter Surname");
+				SetName(CreateUsers.s.nextLine());
+				System.out.println("Enter Registration Number");
+				registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
+
+				if(registrationNumber != int){
+					throw new CustomException();
+					}
+				else{ 
+					exceptionCheck = 1;
+					}
+				
+				}
+			catch (CustomException exception){
+				System.out.println(exception + "Something went wrong, please try again.")
+			}
+			}
 		
 		SetType(Type.Student); //sets its type to Student
 		
-		//Add object to specific list
+		//Add object to both generic and specific list
+		User.allUsers.add(this);
 		Student.allStudents.add(this);
+		usersCounter++; //userCounter is inherited from User
 		
 		System.out.println("'Student' created.");
 	}
@@ -52,8 +70,10 @@ public class Student extends User {
 		registrationNumber = newRegistrationNumber; //final variable is initialized on constructor
 		SetType(Type.Student); //sets its type to Student
 		
-		//Add object to specific list
+		//Add object to both generic and specific list
+		User.allUsers.add(this);
 		Student.allStudents.add(this);
+		usersCounter++; //userCounter is inherited from User
 		
 		System.out.println("'Student' created.");
 	}
@@ -67,14 +87,11 @@ public class Student extends User {
 	}
 	
 	//Enroll to a course, added to a pending list on Secretary class
-	public EnrollCourseRequest EnrollCourse(Course course) {
+	public void EnrollCourse(Course course) {
 		//crate a new EnrollCourseRequest instance for this student
 		EnrollCourseRequest request = new EnrollCourseRequest(this, course);
 		//Request call static method on Secretary class
-		int requestReturn = Secretary.StudentEnrollCourse(request);
-		if (requestReturn == 0) System.out.println("Request was made.");
-		else System.out.println("Request already exists");
-		return request;
+		Secretary.StudentEnrollCourse(request);
 	}
 	
 	//Show all grades of this student
@@ -86,7 +103,7 @@ public class Student extends User {
 	//Find Student by Registration Number
 	public static Student FindByRegistrationNumber(Integer target) {
 		for (int i = 0; i < allStudents.size(); i++) {
-			if (allStudents.get(i).GetRegistrationNumber().intValue() == target) {
+			if (allStudents.get(i).GetRegistrationNumber() == target) {
 				return allStudents.get(i);
 			}
 		}
