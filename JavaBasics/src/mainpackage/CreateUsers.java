@@ -1,6 +1,5 @@
 package mainpackage;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import courseManagement.*;
@@ -220,6 +219,7 @@ public class CreateUsers implements Serializable {
 		//για την πρώτη άσκηση όπου η υλοποίηση δεν έχει ολοκληρωθεί, υπάρχει ο παρακάτω τρόπος user interface
 		//στην αρχή ο χρήστης επιλέγει το user / δικαιώματα όπου θα έχει
 		//μετά μπορεί να επιλέγει τις λειτουργείες όπου του επιτρέπονται και να τις εκτελεί
+		//Μπορεί επίσης να επιλέγει "select other user" για να αλλάξει χρήστη / δικαιώματα
 		System.out.println("Select User type (only for testing):");
 		System.out.println("(1) Student , (2) Professor , (3) Secretary");
 		

@@ -23,6 +23,8 @@ public class Student extends User {
 	//Constructors
 	//Constructor with user interface
 	public Student() {
+		int tempReg = 0;
+		int error = 0;
 		System.out.println("Creating Student:");
 		System.out.println("Enter Username");
 		SetUsername(CreateUsers.s.nextLine());
@@ -32,8 +34,23 @@ public class Student extends User {
 		SetName(CreateUsers.s.nextLine());
 		System.out.println("Enter Surname");
 		SetSurname(CreateUsers.s.nextLine());
-		System.out.println("Enter Registration Number");
-		registrationNumber = Integer.valueOf(CreateUsers.s.nextLine()); //final variable is initialized on constructor
+		
+		while(error == 0) {
+			System.out.println("Enter Registration Number");
+			try {
+				String text = CreateUsers.s.nextLine();
+				if(text.matches("[0-9]+") == false || text.length() <= 0 ) throw new InvalidInputException("Invalid Registration Number. Please use only digits from 0 to 9");
+				tempReg = Integer.valueOf(text);
+				error = 1;
+				
+			}catch (InvalidInputException e) {
+				tempReg = -1;
+				System.out.println(e.getMessage());
+			}
+		}
+		if (tempReg == 0) registrationNumber = 0000; else registrationNumber = tempReg;
+		
+		
 		
 		SetType(Type.Student); //sets its type to Student
 		
@@ -106,6 +123,22 @@ public class Student extends User {
 	//getters
 	public String GetRegistrationNumberToString() {
 		return registrationNumber.toString();
+	}
+	
+	
+	public class InvalidInputException extends Exception{
+		
+		//auto generated serialVersionUID
+		private static final long serialVersionUID = -3192003298423759656L;
+
+		public InvalidInputException() {
+			super("Wrong Input! Please try again.");
+		}
+		
+		public InvalidInputException(String message) {
+			super(message);
+		}
+		
 	}
 }
 
